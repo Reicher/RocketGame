@@ -36,29 +36,8 @@ export default class GameScene extends Phaser.Scene {
         const ground = new Tile(this, 0, 0, 'ground', tileBody.ground)
         const bottomLeft = new Tile(this, -ground.displayWidth, 0, 'bottom-left', tileBody.bottom_left)
         const vertical  = new Tile(this, -ground.displayWidth, -bottomLeft.displayHeight, 'vertical', tileBody.vertical)
-		//tilemap[1][0] = new Tile(this, 0, 0, 'ground', tileBody.ground)
-		//tilemap[0][1] = new Tile(this, 0, 0, 'bottom-left', tileBody.bottom_left)
-		//tilemap[0][1] = new Tile(this, -400, -400, 'vertical', tileBody.vertical)
 
-		// const ground = this.matter.add.image(0, 0, 'ground', undefined, {
-        //     shape: tileBody.ground,
-        // });
-        // console.log((ground.body as MatterJS.BodyType).centerOfMass)
-        
-        // ground.setPosition(0 + (ground.body as MatterJS.BodyType).centerOfMass.x, 0 + (ground.body as MatterJS.BodyType).centerOfMass.y)
-        
-        // const bottomLeft = this.matter.add.image(0, 0, 'bottom-left', undefined, {
-        //     shape: tileBody.bottom_left,
-        // });
-        // console.log((bottomLeft.body as MatterJS.BodyType).centerOfMass)
-		//var bottom_left = this.matter.add.image(0, 0, 'bottom-left', null, {shape: tileBody.bottom_left});
-
-		//var planet = new Planet(this, 0, 0);
-		this.ship = new Ship(this, 0, 0);
-		//this.spaceman = new Spaceman(this, 30, -200);
-
-		//this.player = this.spaceman;
-        this.player = this.ship;
+		this.player = new Ship(this, 100, 50);
     }
 
     update(time, delta) {
