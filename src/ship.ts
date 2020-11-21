@@ -4,6 +4,10 @@ export default class Ship extends Phaser.Physics.Matter.Image {
     fuelConsumptionTurn: number
     turnRate: number
     cursors: Phaser.Types.Input.Keyboard.CursorKeys
+    prevPos: {
+        x: number,
+        y: number
+    }
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene.matter.world, x, y, "ship");
@@ -23,6 +27,11 @@ export default class Ship extends Phaser.Physics.Matter.Image {
         this.fuelConsumptionTurn = this.fuelConsumption * 0.5;
 
         this.angle = -90
+
+        this.prevPos = {
+            x, 
+            y
+        }
     }
 
     turn(delta, direction) {
@@ -52,6 +61,10 @@ export default class Ship extends Phaser.Physics.Matter.Image {
     }
 
     update(time, delta) {
+        this.prevPos = {
+            x: this.x,
+            y: this.y
+        }
         this.scene.cameras.main.setAngle(-this.angle-90); // whyyy?
 
         if (this.cursors.left?.isDown) this.turn(delta, "Left")
