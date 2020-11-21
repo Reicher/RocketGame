@@ -36,9 +36,8 @@ export default class GameScene extends Phaser.Scene {
         const ground = new Tile(this, 0, 0, 'ground', tileBody.ground)
         const bottomLeft = new Tile(this, -ground.displayWidth, 0, 'bottom-left', tileBody.bottom_left)
         const vertical  = new Tile(this, -ground.displayWidth, -bottomLeft.displayHeight, 'vertical', tileBody.vertical)
-		
-		this.ship = new Ship(this, -ground.displayHeight / 2, 0);
-        this.player = this.ship;
+
+		this.player = new Ship(this, 100, 50);
     }
 
     update(time, delta) {
