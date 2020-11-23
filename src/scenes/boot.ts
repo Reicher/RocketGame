@@ -28,6 +28,8 @@ export default class BootScene extends Phaser.Scene {
         this.load.image("ground", "assets/tiles/ground.png");
         this.load.image("vertical", "assets/tiles/vertical.png");
         this.load.image("bottom-left", "assets/tiles/bottom-left.png");
+        this.load.image("back", "assets/tiles/back.png");
+        this.load.image("filler", "assets/tiles/filler.png");
         this.load.spritesheet('spaceman', 'assets/spaceman.png', { frameWidth: 16, frameHeight: 32 });
 
         // Load body shapes from JSON file generated using PhysicsEditor

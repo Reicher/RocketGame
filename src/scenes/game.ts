@@ -3,16 +3,16 @@ import Ship from '../ship'
 import Tile from '../tile';
 
 export default class GameScene extends Phaser.Scene {
-    space: Phaser.GameObjects.TileSprite;
     ship: Ship;
     player: Ship;
+    filler: Phaser.GameObjects.TileSprite;
 
     constructor() {
         super({
             key: 'GameScene'
         });
 
-        this.space = {} as Phaser.GameObjects.TileSprite
+        this.filler = {} as Phaser.GameObjects.TileSprite
         this.ship = {} as Ship
         this.player = {} as Ship
     }
@@ -23,14 +23,12 @@ export default class GameScene extends Phaser.Scene {
 		console.log("GameScene - create");
 
 		// There must be a better way to have infinite space?
-		this.space = this.add.tileSprite(-this.cameras.main.width/2,
-						-this.cameras.main.height/2,
-						this.cameras.main.width*2,
-						this.cameras.main.height*2,
-                        'space');
+		this.filler = this.add.tileSprite(-1000, -1000,
+						2000,
+						2000,
+                        'filler');
 
-		// this.space.setOrigin(0);
-		// this.space.setScrollFactor(0);
+		this.filler.setOrigin(0);
 
         const tileBody = this.cache.json.get('tiles');
 
@@ -47,11 +45,8 @@ export default class GameScene extends Phaser.Scene {
 
     update(time, delta) {
         const { x: prevX, y: prevY } = this.player.prevPos
-        
-        this.player.update(time, delta);
 
-		this.space.tilePositionX -= (prevX - this.ship.x) + 0.005 * delta;
-		this.space.tilePositionY -= (prevY - this.ship.y) + 0.005 * delta;
+        this.player.update(time, delta);
 
 		this.cameras.main.startFollow(this.player)
 
