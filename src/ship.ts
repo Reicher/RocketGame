@@ -1,5 +1,18 @@
+
+export const EVENTS = {
+    UPDATE_HEALTH: 'updateHealth'
+}
+
+export interface UpdateHealthPayload {
+    current: number
+    max: number
+}
+
 export default class Ship extends Phaser.Physics.Matter.Image {
     turnRate: number
+    fuel: number
+    maxFuel = 250
+
     cursors: Phaser.Types.Input.Keyboard.CursorKeys
     prevPos: {
         x: number,
@@ -8,7 +21,7 @@ export default class Ship extends Phaser.Physics.Matter.Image {
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene.matter.world, x, y, "ship");
-
+        this.fuel = this.maxFuel
         this.setScale(0.05); // Should be pre-scaled...
         this.setFrictionAir(0.01);
         this.setMass(30);
@@ -27,7 +40,7 @@ export default class Ship extends Phaser.Physics.Matter.Image {
         }
     }
 
-    turn(delta: number, direction: str) {
+    turn(delta: number, direction: string) {
         if (direction == "Left")
             this.setAngularVelocity(-this.turnRate * delta);
         else if (direction == "Right")
@@ -35,6 +48,13 @@ export default class Ship extends Phaser.Physics.Matter.Image {
     }
 
     fireEngine(delta: number) {
+        if(this.fuel > 0) {
+            this.fuel -= 1
+            this.emit(EVENTS.UPDATE_HEALTH, {
+                current: this.fuel,
+                max: this.maxFuel
+            })
+        }
         this.thrust(0.007 * delta);
     }
 

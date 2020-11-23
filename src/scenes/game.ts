@@ -1,3 +1,4 @@
+import { HuDScene } from '.';
 import Ship from '../ship'
 import Tile from '../tile';
 
@@ -16,7 +17,7 @@ export default class GameScene extends Phaser.Scene {
         this.player = {} as Ship
     }
     preload() {
-		console.log("GameScene - preload");
+        console.log("GameScene - preload");
     }
     create() {
 		console.log("GameScene - create");
@@ -28,8 +29,8 @@ export default class GameScene extends Phaser.Scene {
 						this.cameras.main.height*2,
                         'space');
 
-		this.space.setOrigin(0);
-		this.space.setScrollFactor(0);
+		// this.space.setOrigin(0);
+		// this.space.setScrollFactor(0);
 
         const tileBody = this.cache.json.get('tiles');
 
@@ -37,7 +38,11 @@ export default class GameScene extends Phaser.Scene {
         const bottomLeft = new Tile(this, -ground.displayWidth, 0, 'bottom-left', tileBody.bottom_left)
         const vertical  = new Tile(this, -ground.displayWidth, -bottomLeft.displayHeight, 'vertical', tileBody.vertical)
 
-		this.player = new Ship(this, 100, 50);
+        this.player = new Ship(this, 100, 50);
+        
+        this.scene.add('HuDScene', HuDScene, true, {
+            player: this.player
+        })
     }
 
     update(time, delta) {
