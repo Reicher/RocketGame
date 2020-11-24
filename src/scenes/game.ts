@@ -22,10 +22,8 @@ export default class GameScene extends Phaser.Scene {
     create() {
 		console.log("GameScene - create");
 
-        const tileBody = this.cache.json.get('tiles');
-
         this.level = new Level(this)
-        this.player = new Ship(this, 100, 50);
+        this.player = new Ship(this, 1000, 1850);
 
         this.scene.add('HuDScene', HuDScene, true, {
             player: this.player
