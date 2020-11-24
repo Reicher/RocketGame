@@ -1,11 +1,11 @@
+import Level from '~/level';
 import { HuDScene } from '.';
 import Ship from '../ship'
-import Tile from '../tile';
 
 export default class GameScene extends Phaser.Scene {
-    ship: Ship;
     player: Ship;
     filler: Phaser.GameObjects.TileSprite;
+    level: Level;
 
     constructor() {
         super({
@@ -13,8 +13,8 @@ export default class GameScene extends Phaser.Scene {
         });
 
         this.filler = {} as Phaser.GameObjects.TileSprite
-        this.ship = {} as Ship
         this.player = {} as Ship
+        this.level = {} as Level
     }
     preload() {
         console.log("GameScene - preload");
@@ -22,29 +22,17 @@ export default class GameScene extends Phaser.Scene {
     create() {
 		console.log("GameScene - create");
 
-		// There must be a better way to have infinite space?
-		this.filler = this.add.tileSprite(-1000, -1000,
-						2000,
-						2000,
-                        'filler');
-
-		this.filler.setOrigin(0);
-
         const tileBody = this.cache.json.get('tiles');
 
-        const ground = new Tile(this, 0, 0, 'ground', tileBody.ground)
-        const bottomLeft = new Tile(this, -ground.displayWidth, 0, 'bottom-left', tileBody.bottom_left)
-        const vertical  = new Tile(this, -ground.displayWidth, -bottomLeft.displayHeight, 'vertical', tileBody.vertical)
-
+        this.level = new Level(this)
         this.player = new Ship(this, 100, 50);
-        
+
         this.scene.add('HuDScene', HuDScene, true, {
             player: this.player
         })
     }
 
     update(time, delta) {
-        const { x: prevX, y: prevY } = this.player.prevPos
 
         this.player.update(time, delta);
 
