@@ -1,9 +1,11 @@
 import Tile from './tile';
 
-const map = [['vertical'],
-             ['vertical'],
-             ['vertical'],
-             ['bottom-Left', 'ground', 'ground', 'ground', 'ground']] as const;
+const map = [
+    ['vertical'],
+    ['vertical'],
+    ['vertical'],
+    ['bottom-Left', 'ground', 'ground', 'ground', 'ground']
+] as const;
 
 const tileSize = {x: 500, y: 500}
 
@@ -12,11 +14,11 @@ export default class Level {
     tiles: any;
     constructor(scene: Phaser.Scene) {
 
-        let map_width = Math.max(...map.map(a=>a.length));
-        let map_height = map.length
+        const mapWidth = Math.max(...map.map(a=>a.length));
+        const mapHeight = map.length
         this.filler = scene.add.tileSprite(-tileSize.x, -tileSize.y,
-            500 * (map_width+2),
-            500 * (map_height+2),
+            500 * (mapWidth+2),
+            500 * (mapHeight+2),
             'filler');
         this.filler.setOrigin(0);
 
@@ -36,7 +38,7 @@ export default class Level {
                         this.tiles[i][j] = new Tile(scene, j * tileSize.x, i*tileSize.y, 'ground', tileBody.ground)
                         break;
                     default:
-                        console.log('Weird tilename ${map[i][j]} not found in level');
+                        console.log(`Weird tilename ${map[i][j]} not found in level`);
                 }
             }
          }
